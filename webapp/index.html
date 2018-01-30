@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practica de REST</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    </head>
+    <body style="background-color:floralwhite;font-family:verdana;color:#2d2d2d">
+        <h1 style="margin-bottom:0">Práctica de REST</h1>
+        <p style="margin-top:0">por mothcrown</p>
+        <hr />
+        <div class="content" style="position:relative">
+            <div class="listaActores" style="position:absolute;right:0;border:solid 1px black;background-color:ghostwhite">
+            <h2 style="margin-left: 1em">Lista de actores</h2>
+            <ul id="actorList" ></ul>
+            </div>
+            <div class="buscaActor" style="display:block;width:20em;padding:1em;border:solid 1px black;background-color:ghostwhite">
+                <label for="inputSearch">
+                    <span>Busca un actor por su ID</span><br />
+                    <input type="number" id="inputSearch" style="width:15em;margin-top:.5em">
+                </label>
+                <input type="button" id="btnSearch" value="Buscar">
+            </div>
+            <div class="insertaActor" style="position:relative;display:block;width:25em;margin-top:1em;padding:1em;border:solid 1px black;background-color:ghostwhite">
+                <p>Introduce un nuevo actor en la base de datos</p>
+                <label for="inputName">
+                    <span>Nombre</span><br />
+                    <input type="text" id="inputName" style="width:15em;margin-top:.5em"><br />
+                </label>
+                <label for="inputSurname">
+                    <span>Apellido</span><br />
+                    <input type="text" id="inputSurname" style="width:15em;margin-top:.5em"><br />
+                </label>
+                <input type="button" id="btnInsert" value="Insertar" style="position:relative;left:75%;margin-top:1em">
+            </div>
+            <div id="results" style="display:none;position:absolute;padding:1em;width:25em;right:0;left:0;top:0;margin:auto;border: solid 1px black;background-color:ghostwhite"></div>
+        </div>
+        
+        <script>
+            function refreshActorList() {
+                var custList = $('#actorList');
+                custList.empty();
+                $.ajax({
+                    "url": "webresources/actors/selectall",
+                    "type": "get",
+                    "dataType": "json",
+                    "success": function (actors) {
+                    $.each(actors, function (i, actor) {
+                        var li = $('<li/>')
+                            .addClass('ui-menu-item')
+                            .attr('role', 'menuitem')
+                            .appendTo(custList);
+                        var a = $('<a/>')
+                            .addClass('ui-all')
+                            .text(actor.firstName + ' ' + actor.lastName)
+                            .appendTo(li);
+                        });
+                    }
+                });
+            }
+            
+            function activateBtnSearch() {
+                $('#btnSearch').click(function() {
+                    actorId = $('#inputSearch').val();
+                    results = $('#results');
+                    results.empty();
+                    nurl = "webresources/actors/search?actorid=" + actorId;
+                    $.ajax({
+                        "url": nurl,
+                        "type": "get",
+                        "dataType": "json",
+                        "success": function (actor) {
+                            title = $('<h2/>').css('text-align', 'center').text('¡Actor encontrado!').appendTo(results);
+                            pId = $('<p/>').text(actor.actorId).appendTo(results);
+                            spanId = $('<span/>').css('font-weight', 'bold').text('Id: ').prependTo(pId);
+                            pName = $('<p/>').text(actor.firstName).appendTo(results);
+                            spanName = $('<span/>').css('font-weight', 'bold').text('Nombre: ').prependTo(pName);
+                            pSurname = $('<p/>').text(actor.lastName).appendTo(results);
+                            spanSurname = $('<span/>').css('font-weight', 'bold').text('Apellido: ').prependTo(pSurname);
+                            results.css('display', 'block');   
+                        },
+                        "error": function() {
+                           title = $('<h2/>').css('text-align', 'center').text('No se ha encontrado el actor').appendTo(results); 
+                        }
+                    });
+                                    
+                });
+            }
+            
+            function activateBtnInsert() {
+                $('#btnInsert').click(function() {
+                    firstName= $('#inputName').val();
+                    lastName= $('#inputSurname').val();
+                    results = $('#results');
+                    results.empty();
+                    nurl = "webresources/actors/insert?nombre=" + firstName + "&apellido=" + lastName;
+                    $.ajax({
+                        "url": nurl,
+                        "type": "get",
+                        "dataType": "json",
+                        "success": function (actor) {
+                            title = $('<h2/>').css('text-align', 'center').text('¡Actor guardado!').appendTo(results);
+                            pId = $('<p/>').text(actor.actorId).appendTo(results);
+                            spanId = $('<span/>').css('font-weight', 'bold').text('Id: ').prependTo(pId);
+                            pName = $('<p/>').text(actor.firstName).appendTo(results);
+                            spanName = $('<span/>').css('font-weight', 'bold').text('Nombre: ').prependTo(pName);
+                            pSurname = $('<p/>').text(actor.lastName).appendTo(results);
+                            spanSurname = $('<span/>').css('font-weight', 'bold').text('Apellido: ').prependTo(pSurname);
+                            results.css('display', 'block');
+                            refreshActorList();
+                        },
+                        "error": function() {
+                           title = $('<h2/>').css('text-align', 'center').text('No se ha podido insertar el actor :(').appendTo(results); 
+                        }
+                    });
+                                    
+                });
+            }
+            
+            $(document).ready(function () {
+                refreshActorList();
+                activateBtnSearch();
+                activateBtnInsert();
+            });
+        </script>
+        
+    </body>
+</html>

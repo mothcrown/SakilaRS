@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="sakila"/>
+  <table-filter match-name="customer"/>
+  <table-filter match-name="users_groups"/>
+  <table-filter match-name="rental"/>
+  <table-filter match-name="payment"/>
+  <table-filter match-name="film_text"/>
+  <table-filter match-name="inventory"/>
+  <table-filter match-name="language"/>
+  <table-filter match-name="category"/>
+  <table-filter match-name="country"/>
+  <table-filter match-name="film"/>
+  <table-filter match-name="film_actor"/>
+  <table-filter match-name="actor"/>
+  <table-filter match-name="users"/>
+  <table-filter match-name="groups"/>
+  <table-filter match-name="store"/>
+  <table-filter match-name="film_category"/>
+  <table-filter match-name="city"/>
+  <table-filter match-name="staff"/>
+  <table-filter match-name="address"/>
+</hibernate-reverse-engineering>

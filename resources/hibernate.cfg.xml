@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sakila?serverTimezone=UTC</property>
+    <property name="hibernate.connection.username">2dawa</property>
+    <property name="hibernate.connection.password">2dawa</property>
+    <mapping class="es.cifpcm.sakilars.model.Film"/>
+    <mapping class="es.cifpcm.sakilars.model.FilmActorId"/>
+    <mapping class="es.cifpcm.sakilars.model.FilmCategory"/>
+    <mapping class="es.cifpcm.sakilars.model.FilmCategoryId"/>
+    <mapping class="es.cifpcm.sakilars.model.Address"/>
+    <mapping class="es.cifpcm.sakilars.model.Category"/>
+    <mapping class="es.cifpcm.sakilars.model.Staff"/>
+    <mapping class="es.cifpcm.sakilars.model.City"/>
+    <mapping class="es.cifpcm.sakilars.model.Groups"/>
+    <mapping class="es.cifpcm.sakilars.model.Inventory"/>
+    <mapping class="es.cifpcm.sakilars.model.Users"/>
+    <mapping class="es.cifpcm.sakilars.model.Language"/>
+    <mapping class="es.cifpcm.sakilars.model.Customer"/>
+    <mapping class="es.cifpcm.sakilars.model.Store"/>
+    <mapping class="es.cifpcm.sakilars.model.Actor"/>
+    <mapping class="es.cifpcm.sakilars.model.Rental"/>
+    <mapping class="es.cifpcm.sakilars.model.Country"/>
+    <mapping class="es.cifpcm.sakilars.model.Payment"/>
+    <mapping class="es.cifpcm.sakilars.model.FilmText"/>
+    <mapping class="es.cifpcm.sakilars.model.FilmActor"/>
+  </session-factory>
+</hibernate-configuration>
