@@ -93,11 +93,12 @@
                     lastName= $('#inputSurname').val();
                     results = $('#results');
                     results.empty();
-                    nurl = "webresources/actors/insert?nombre=" + firstName + "&apellido=" + lastName;
                     $.ajax({
-                        "url": nurl,
-                        "type": "get",
+                        "url": "webresources/actors/insert",
+                        "type": "post",
                         "dataType": "json",
+                        "contentType": 'application/json',
+                        "data": JSON.stringify( { "firstName": firstName, "lastName": lastName } ),
                         "success": function (actor) {
                             title = $('<h2/>').css('text-align', 'center').text('¡Actor guardado!').appendTo(results);
                             pId = $('<p/>').text(actor.actorId).appendTo(results);

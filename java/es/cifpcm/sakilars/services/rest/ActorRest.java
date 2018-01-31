@@ -5,10 +5,13 @@ import es.cifpcm.sakilars.data.actor.ActorDao;
 import es.cifpcm.sakilars.data.actor.ActorDaoImpl;
 import es.cifpcm.sakilars.model.Actor;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -76,18 +79,15 @@ public class ActorRest {
      * añadir tu nombre a... uhh.. PENELOPE GUINESS, que debe ser la hija
      * sin talento de Obi Wan.
      * 
-     * @param firstName
-     * @param lastName
+     * @param actor
      * @return 
      */
-    @GET
+    @POST
     @Path("/insert")
     @Produces ("application/json")
-    public String insert(@QueryParam("nombre") String firstName, @QueryParam("apellido") String lastName) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String insert(Actor actor) {
         ActorDao actorDao = new ActorDaoImpl();
-        Actor actor = new Actor();
-        actor.setFirstName(firstName);
-        actor.setLastName(lastName);
         actor = actorDao.insert(actor);
         StringBuffer sb = new StringBuffer();
         sb.append("{\"actorId\":\"");
